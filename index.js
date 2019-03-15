@@ -41,6 +41,71 @@ const LaunchRequestHandler = {
     },
 };
 
+const ExitHandler = {
+    canHandle(handlerInput) {
+        const request = handlerInput.requestEnvelope.request;
+
+        return request.type === 'IntentRequest'
+            && (request.intent.name === 'AMAZON.CancelIntent'
+                || request.intent.name === 'AMAZON.StopIntent');
+    },
+    handle(handlerInput) {
+        return handlerInput.responseBuilder
+            .speak('Bye')
+            .getResponse();
+    },
+};
+
+const SessionEndedRequestHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
+    },
+    handle(handlerInput) {
+        console.log(`Session ended with reason: ${handlerInput.requestEnvelope.request.reason}`);
+
+        return handlerInput.responseBuilder.getResponse();
+    },
+};
+
+const HelpHandler = {
+    canHandle(handlerInput) {
+        const request = handlerInput.requestEnvelope.request;
+
+        return request.type === 'IntentRequest'
+            && request.intent.name === 'AMAZON.HelpIntent';
+    },
+    handle(handlerInput) {
+        return handlerInput.responseBuilder
+            .speak("not implemented")
+            .reprompt('//')
+            .getResponse();
+    },
+};
+
+const YesHandler = {
+    canHandle(handlerInput) {
+        const request = handlerInput.requestEnvelope.request;
+
+        return request.type === 'IntentRequest'
+            && request.intent.name === 'AMAZON.YesIntent';
+    },
+    handle(handlerInput) {
+        return handlerInput.responseBuilder
+            .speak("not implemented")
+            .reprompt('//')
+            .getResponse();
+    },
+};
+
+const ErrorHandler = {
+    canHandle() {
+        return true;
+    },
+    handle(handlerInput, error) {
+        console.log(`Error handled: ${error.message}`);
+    },
+};
+
 const RequestLog = {
     process(handlerInput) {
         console.log(`REQUEST ENVELOPE = ${JSON.stringify(handlerInput.requestEnvelope)}`);
