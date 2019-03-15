@@ -41,6 +41,23 @@ const LaunchRequestHandler = {
     },
 };
 
+const ProgressReport = {
+    canHandle(handlerInput) {
+        const request = handlerInput.requestEnvelope.request;
+        return request.type === 'IntentRequest'
+            && request.intent.name === 'ProgressReport'
+            && request.dialogState !== 'COMPLETED';  //&& request.dialogState !== 'COMPLETED'; means you have not finished the conversation
+    },
+    handle(handlerInput) {
+        const filledSlots = handlerInput.requestEnvelope.request.intent.slots;
+        const slotvalues_notresolved = getSlotValues(filledSlots);
+        const content = slotvalues_notresolved.content.resolved;
+    
+        // start with states
+
+    },
+};
+
 const ExitHandler = {
     canHandle(handlerInput) {
         const request = handlerInput.requestEnvelope.request;
@@ -125,7 +142,8 @@ exports.handler = skillBuilder
     ExitHandler,
     ErrorHandler,
     SessionEndedRequestHandler,
-    YesHandler
+    YesHandler,
+    ProgressReport
 )
 /*.addErrorHandlers(ErrorHandler)
 .withApiClient(new Alexa.DefaultApiClient())
