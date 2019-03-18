@@ -2,9 +2,17 @@
 const Alexa = require('ask-sdk-core');
 const AWS = require("aws-sdk");
 
+const questionData = require('./questions');
+
 // user state
 let userName = '';
 let userEmail = '';
+
+// alexa interaction variables
+let state = 0;
+let answerData = {};
+let speechResponse = "";
+let dataPtr = "project_name";
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -53,7 +61,22 @@ const ProgressReport = {
         const slotvalues_notresolved = getSlotValues(filledSlots);
         const content = slotvalues_notresolved.content.resolved;
     
-        // start with states
+        // do some answer content handling here
+
+        if (state == 0) {
+            speechResponse = questionData.question.project_name;
+        } else if (state == 1) {
+            answerData.projectName = content;
+            speechResponse = questionData.question.past_milestones.content;
+        } 
+
+        state++;
+        
+        return handlerInput.responseBuilder
+                .speak(speechResponse)
+                .reprompt('//')
+                .addElicitSlotDirective('content')
+                .getResponse();
 
     },
 };
