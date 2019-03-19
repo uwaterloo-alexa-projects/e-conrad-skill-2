@@ -21,14 +21,16 @@ const LaunchRequestHandler = {
     async handle(handlerInput) {
         const {serviceClientFactory, responseBuilder} = handlerInput;
         try {
+            console.log("init state");
             const upsServiceClient = serviceClientFactory.getUpsServiceClient();
             const profileName = await upsServiceClient.getProfileName();
             const profileEmail = await upsServiceClient.getProfileEmail();
+            console.log("acq user information");
             userName = profileName;
             userEmail = profileEmail;
             
-            let speechResponse = "Hello, Welcome to the monthly conrad report skill";
-
+            let speechResponse = "Hello, Welcome to the monthly conrad report skill. Please say start report to get started.";
+            
             return responseBuilder
                 .speak(speechResponse)
                 .reprompt(`Please say "start report" to get started.`)
@@ -60,7 +62,8 @@ const ProgressReport = {
         const filledSlots = handlerInput.requestEnvelope.request.intent.slots;
         const slotvalues_notresolved = getSlotValues(filledSlots);
         const content = slotvalues_notresolved.content.resolved;
-    
+        
+        console.log("progress report intent fired");
         // do some answer content handling here
 
         if (state == 0) {

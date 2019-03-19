@@ -1,0 +1,23 @@
+{
+  "name": "us-east-1_conrad-skill-2-testing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uwaterloo-alexa-projects/e-conrad-skill-2.git"
+  },
+  "author": "mickey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uwaterloo-alexa-projects/e-conrad-skill-2/issues"
+  },
+  "homepage": "https://github.com/uwaterloo-alexa-projects/e-conrad-skill-2#readme",
+  "dependencies": {
+    "ask-sdk-core": "^2.5.1",
+    "aws-sdk": "^2.423.0"
+  }
+}
